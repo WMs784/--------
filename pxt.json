@@ -1,5 +1,5 @@
 {
-    "name": "--------",
+    "name": "出口ナビゲーター",
     "dependencies": {
         "core": "*",
         "radio": "*",
