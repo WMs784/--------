@@ -43,8 +43,8 @@ basic.forever(function () {
     }
     else if(cd >= 0){//正しい方向じゃない時
         basic.showIcon(IconNames.Angry);//怒る
-        dif = (dif+360)%360+22;
-        basic.showArrow(list[dif/45]);
+        let dif2 = ((dif+360)%360+22.5)%360;
+        basic.showArrow(list[dif2/45]);
         soundExpression.sad.play();
     }
 })
