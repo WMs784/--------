@@ -23,7 +23,7 @@ radio.onReceivedString(function (rs: string) {
     let n = parseInt(rs.substr(1));
     if(rs[0] == 'd'){//目的地からの角度を受け取ったとき
         cd = n;
-        display.show(cd);
+        //display.show(cd);
     }
     else{//方角番号を受け取った時
         basic.showArrow(list[n]);//listから方角を探して矢印を出力
@@ -31,12 +31,15 @@ radio.onReceivedString(function (rs: string) {
     }
 })
 basic.forever(function () {
-    if((input.compassHeading() - cd)**2 <900 && cd>=0){//正しい方向に向いた時
+    let dif = cd - input.compassHeading();
+    if(dif**2 <900 && cd>=0){//正しい方向に向いた時
         basic.showArrow(ArrowNames.North);//真っ直ぐの矢印を出力
         basic.clearScreen();
     }
     else if(cd >= 0){//正しい方向じゃない時
         basic.showIcon(IconNames.Angry);//怒る
-        soundExpression.giggle.play();
+        dif = (dif+360)%360+22;
+        basic.showArrow(list[dif/45]);
+        soundExpression.sad.play();
     }
 })
