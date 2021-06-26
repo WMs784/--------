@@ -35,7 +35,6 @@ radio.onReceivedString(function (rs: string) {
         else{//方角番号を受け取った時
             basic.showArrow(list[n]);//listから方角を探して矢印を出力
         }
-        host_num ++;
     }
 })
 basic.forever(function () {
