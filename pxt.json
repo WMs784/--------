@@ -1,5 +1,5 @@
 {
-    "name": "出口ナビゲーター",
+    "name": "exit_navigator",
     "dependencies": {
         "core": "*",
         "radio": "*",
