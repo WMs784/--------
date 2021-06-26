@@ -25,25 +25,22 @@ input.onButtonPressed(Button.AB, function () {
 })
 let cd = -1;
 let host_num = 1;
+//パケットは、(次のホスト番号)+(現在のホスト番号)+(id)+(矢印番号/方角)
 radio.onReceivedString(function (rs: string) {
     if(parseInt(rs[1]) == host_num){
-        host_num = parseInt(rs[0]);
         let n = parseInt(rs.substr(3));
-        if(rs[2] == 'd'){//目的地からの角度を受け取ったとき
-            cd = n;
+        if(rs[2] == 'i'){//方角番号を受け取ったとき
+            basic.showArrow(list[n]);//listから方角を探して矢印を出力 
         }
-        else{//方角番号を受け取った時
-            basic.showArrow(list[n]);//listから方角を探して矢印を出力
+        else{//角度を受け取ったとき
+            cd = n;
+            //basic.showNumber(cd);
+            host_num = parseInt(rs[0]);
         }
     }
 })
 basic.forever(function () {
     let dif = cd - input.compassHeading();
-    /*if(dif**2 <900 && cd>=0){//正しい方向に向いた時
-        basic.showArrow(ArrowNames.North);//真っ直ぐの矢印を出力
-        basic.clearScreen();
-    }*/
-    //else 
     if(cd >= 0){//正しい方向じゃない時
         let dif2 = ((dif+360)%360+22.5)%360;
         basic.showArrow(list[Math.floor(dif2/45)]);
